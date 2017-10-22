@@ -12,7 +12,7 @@ public class Controller {
 
     public void run() {
         while (!eventList.isEmpty()) {
-            for (Event event : eventList) {
+            for (Event event : new ArrayList<>(eventList)) {
                 if(event.ready()){
                     System.out.println(event);
                     event.action();
