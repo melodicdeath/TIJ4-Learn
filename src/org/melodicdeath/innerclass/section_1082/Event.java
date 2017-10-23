@@ -1,4 +1,4 @@
-package org.melodiceath.innerclass.section_1082;
+package org.melodicdeath.innerclass.section_1082;
 
 public abstract class Event {
     private long eventTime;

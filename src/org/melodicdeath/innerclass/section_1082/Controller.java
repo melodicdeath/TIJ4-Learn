@@ -1,4 +1,4 @@
-package org.melodiceath.innerclass.section_1082;
+package org.melodicdeath.innerclass.section_1082;
 
 import java.util.ArrayList;
 import java.util.List;
