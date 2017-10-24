@@ -1,6 +1,7 @@
 package org.melodicdeath.generics.section_15_10;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,11 +43,10 @@ public class CovariantArrays {
 
         //想在泛型之间建立持有对象的向上转型关系，只能使用通配符
         //Apple是Fruit的子类型，List<Apple> 是 List<? extends Fruit> 的子类型
-        //List<? extends Fruit>限制必须持有Fruit及其子类，但编译器并不知道类型是什么,可以是Apple，也可以是Orange。
+        //List<? extends Fruit>限制必须持有Fruit及其子类，但编译器并不知道具体类型是什么,可以是Apple，也可以是Orange。
         //因为没法确定，为了类型安全不允许往里面添加任何类型，甚至Object也不行。
         //另一方面，编译器知道不管持有什么类型，至少是个Fruit，所以当读取时，能确保得到一个Fruit
         List<? extends Fruit> fruits2 = new ArrayList<Apple>();
-        //编译之后，编译器还是不知道fruits2指向的是持有具有类型Apple的List，只知道是Fruit或者它的某个子类
 
         /*Error:(50, 16) java: 对于add(org.melodicdeath.generics.section_15_10.Apple), 找不到合适的方法
     方法 java.util.Collection.add(capture#1, 共 ? extends org.melodicdeath.generics.section_15_10.Fruit)不适用
@@ -60,7 +60,65 @@ public class CovariantArrays {
         fruits2.add(null);
         Fruit f = fruits2.get(0);
 
-//http://www.cnblogs.com/softidea/p/4106659.html
+        Apple apple = (Apple)fruits2.get(0);
+        System.out.println(apple);
 
+        //contains和indexOf的参数是Object，不涉及通配符，所以可以安全调用
+        //而add的参数是? extends Fruit，在编译时会替换成capture#1，因此任何与任何类型都不会匹配。
+        System.out.println(fruits2.contains(apple));
+        System.out.println(fruits2.indexOf(apple));
+
+
+        //fruits指向的是一个装有Apple的某种超类(supertype)的List。同样的，我们不知道究竟是什么超类。
+        //但我们知道Fruit和任何Fruit的子类都跟它的类型兼容。因此可以写入
+        //另一方面，当我们取出时，只能取出Object实例。因为我们不知道超类究竟是什么，编译器唯一能保证的只是它是个Object，因为Object是任何Java类型的超类。
+        List<? super Fruit> fruit3 = new ArrayList<>();
+        fruit3.add(new Apple());
+        fruit3.add(new Orange());
+        fruit3.add(new Jonathan());
+        fruit3.add(new Fruit());
+
+        for(Object fruit : fruit3){
+            System.out.println((Fruit)fruit);
+        }
+
+        //即要读又要写，那就不要用通配符
+        List<Fruit> fruit4 = new ArrayList<>();
+        fruit4.add(new Apple());
+        fruit4.add(new Orange());
+        fruit4.add(new Jonathan());
+        fruit4.add(new Fruit());
+
+        for(Fruit fruit : fruit4){
+            System.out.println(fruit);
+        }
     }
 }
+
+class GenericReading {
+
+    static <T> void writeExact(List<T> list,T item) {
+        list.add(item);
+    }
+
+    static <T> void writeWithWildcard(List<? super T> list,T item){
+        list.add(item);
+    }
+
+    public static void main(String[] args) {
+        List<Apple> apples = new ArrayList<>();
+        apples.add(new Apple());
+
+        List<Fruit> fruits = new ArrayList<>();
+        fruits.add(new Fruit());
+
+        writeExact(apples,new Apple());
+        writeExact(fruits,new Apple());//这里在jdk7以前应该会报错
+
+        System.out.println(Arrays.toString(fruits.toArray()));
+
+        writeWithWildcard(apples,new Apple());
+        writeWithWildcard(fruits,new Apple());
+    }
+}
+
