@@ -1,6 +1,4 @@
-package org.melodicdeath.generics.section_1582;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
+package org.melodicdeath.generics.section_15_8_2;
 
 import java.lang.reflect.Array;
 

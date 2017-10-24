@@ -1,4 +1,4 @@
-package org.melodicdeath.generics.section_1573;
+package org.melodicdeath.generics.section_15_7_3;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

@@ -1,9 +1,8 @@
-package org.melodicdeath.generics.section_1514;
+package org.melodicdeath.generics.section_15_1_4;
 
 //泛型类型推导
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 class Pet {

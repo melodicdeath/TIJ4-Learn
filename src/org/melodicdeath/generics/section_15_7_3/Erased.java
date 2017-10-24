@@ -1,4 +1,4 @@
-package org.melodicdeath.generics.section_1573;
+package org.melodicdeath.generics.section_15_7_3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,12 @@ import java.util.List;
  * Created by zt.melody on 2017/10/23.
  */
 
+/*
+* List<String>、List<T> 擦除后的类型为 List。
+List<String>[]、List<T>[] 擦除后的类型为 List[]。
+List<? extends E>、List<? super E> 擦除后的类型为 List<E>。
+List<T extends Serialzable & Cloneable> 擦除后类型为 List<Serializable>。
+*/
 public class Erased<T> {
     private static final int SIZE = 100;
 
