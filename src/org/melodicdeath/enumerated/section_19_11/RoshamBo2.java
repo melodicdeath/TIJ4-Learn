@@ -1,7 +1,5 @@
 package org.melodicdeath.enumerated.section_19_11;
 
-import java.util.Random;
-
 /**
  * Created by zt.melody on 2017/10/31.
  */
@@ -9,7 +7,6 @@ import java.util.Random;
 interface Competitor<T extends Competitor<T>> {
     Outcome compete(T competitor);
 }
-
 
 public enum RoshamBo2 implements Competitor<RoshamBo2> {
     PAPER(Outcome.DRAW, Outcome.LOSE, Outcome.WIN),
