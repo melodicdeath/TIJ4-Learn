@@ -12,6 +12,7 @@ class Accessor implements Runnable {
         this.id = id;
     }
 
+    //线程局部变量，如果替换成方法局部变量，同一个实例的局部变量，在多线程环境下值会互相影响
     ThreadLocal<Integer> value = new ThreadLocal<Integer>() {
         @Override
         protected synchronized Integer initialValue() {
