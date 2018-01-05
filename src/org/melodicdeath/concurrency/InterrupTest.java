@@ -15,7 +15,8 @@ public class InterrupTest {
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
                         System.err.println("interrup exception");
-                        break;
+                        Thread.currentThread().interrupt();
+//                        break;
                     }
                 }
 
@@ -26,7 +27,9 @@ public class InterrupTest {
         thread1.start();
 
         TimeUnit.SECONDS.sleep(5);
+        System.out.println(thread1.isInterrupted());
         thread1.interrupt();
+        System.out.println(thread1.isInterrupted());
         TimeUnit.SECONDS.sleep(10);
         System.exit(0);
     }
