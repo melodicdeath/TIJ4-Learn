@@ -10,7 +10,7 @@ public class InterrupTest {
             int count = 0;
 
             @Override
-            public void run() {
+            public void run(){
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.println(count++);
                     try {
